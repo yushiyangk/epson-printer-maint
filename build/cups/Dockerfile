@@ -20,12 +20,14 @@ RUN touch /testpage-template.pdf && chmod 644 /testpage-template.pdf && \
 	mv /var/spool/cups /var/spool/default-cups && mkdir -m 710 /var/spool/cups && chown :lp /var/cache/cups
 
 # tmpfs
-VOLUME /testpage-template.pdf
 VOLUME /etc/cups
 VOLUME /run/cups
 VOLUME /var/cache/cups
 VOLUME /var/log/cups
 VOLUME /var/spool/cups
+
+# bind
+VOLUME /testpage-template.pdf
 
 EXPOSE 631
 

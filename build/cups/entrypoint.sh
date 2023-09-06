@@ -23,6 +23,4 @@ esac
 lpadmin -p "$EPSON_PRINTER_NAME" -E -D "$EPSON_PRINTER_DESCRIPTION" -L "$EPSON_PRINTER_LOCATION" -v "$EPSON_PRINTER_URL" -m "$EPSON_PRINTER_PPD_DRIVER"
 lpstat -l -t
 
-#su cups
-
 cupsd -f  # Restart daemon in foreground
