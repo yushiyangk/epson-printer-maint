@@ -64,5 +64,5 @@ sudo systemctl enable epson-printer-maint && sudo service epson-printer-maint st
 Check the status of the service:
 
 ```
-sudo service ddns-cloudflare status
+sudo service epson-printer-maint status
 ```
