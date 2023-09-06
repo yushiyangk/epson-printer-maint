@@ -1,0 +1,77 @@
+name: epson-printer-maint
+services:
+  cups:
+    build:
+      context: ../build/cups
+      pull: true
+    image: epson-printer-maint-cups
+    env_file:
+      - .env
+    init: true
+    tty: true
+    stdin_open: true
+    cap_drop:
+      - all
+    cap_add:
+      - CAP_CHOWN
+      - CAP_FOWNER
+      - CAP_SETUID
+      - CAP_SETGID
+    security_opt:
+      - no-new-privileges
+    read_only: true
+    volumes:
+      - type: tmpfs
+        target: /etc/cups
+      - type: tmpfs
+        target: /run/cups
+      - type: tmpfs
+        target: /var/cache/cups
+      - type: tmpfs
+        target: /var/log/cups
+      - type: tmpfs
+        target: /var/spool/cups
+      - type: bind
+        source: cups/testpage-template.pdf
+        target: /testpage-template.pdf
+        read_only: true
+    networks:
+      - network
+
+  cron:
+    build:
+      context: ../build/cron
+      pull: true
+    image: epson-printer-maint-cron
+    env_file:
+      - .env
+    init: true
+    tty: true
+    stdin_open: true
+    cap_drop:
+      - all
+    cap_add:
+      - CAP_SETUID
+      - CAP_SETGID
+    security_opt:
+      - no-new-privileges
+    read_only: true
+    volumes:
+      - type: tmpfs
+        target: /etc/crontabs
+      - type: tmpfs
+        target: /etc/ssmtp
+      - type: tmpfs
+        target: /var/spool/cron
+      - type: bind
+        source: cron/ssmtp.conf
+        target: /etc/ssmtp/ssmtp.conf
+        read_only: true
+    networks:
+      - network
+    depends_on:
+      - cups
+
+networks:
+  network:
+    driver: bridge
