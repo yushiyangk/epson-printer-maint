@@ -39,4 +39,4 @@ VOLUME /etc/timezone
 
 EXPOSE 631
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
