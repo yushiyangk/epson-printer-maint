@@ -44,7 +44,7 @@ Using Docker Compose:
 	- **MAIL_DOMAIN**: The fully-qualified domain name that mail should be sent from (not including username)
 	- **MAIL_TO**: The recepient address (including username)
 
-4. Set the cron time zone by editing `timezone` to the appropriate [tz identifier](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), or set it to be the same as the host by running `sudo rm timezone && sudo ln -s /etc/timezone timezone`.
+4. Set the time zone by editing `timezone` to the appropriate [tz identifier](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), or set it to be the same as the host by running `sudo rm timezone && sudo ln -s /etc/timezone timezone`.
 
 5. Optionally, replace `cups/testpage-template.pdf` with a different PDF file.
 
