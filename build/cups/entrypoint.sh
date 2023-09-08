@@ -3,6 +3,9 @@
 # Restore writeable files
 cp -a /defaults/* /container
 
+# Set time zone
+ln -s /usr/share/zoneinfo/"$(cat /etc/timezone)" /container/etc/localtime
+
 
 cupsd  # Start daemon
 
