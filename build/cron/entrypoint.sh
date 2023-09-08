@@ -1,8 +1,7 @@
 #!/bin/sh
 
-# Restore writeable volumes
-cp -a /etc/default-crontabs/* /etc/crontabs
-cp -a /var/spool/default-cron/* /var/spool/cron
+# Restore writeable files
+cp -a /defaults/* /container
 
 
 echo "print:epson-printer-maint@$MAIL_DOMAIN" > /etc/ssmtp/revaliases

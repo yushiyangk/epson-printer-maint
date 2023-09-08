@@ -16,13 +16,16 @@ RUN apk update && \
 COPY --link --chown=print:print --chmod=440 testprint /home/print
 COPY --link --chmod=550 entrypoint.sh entrypoint.sh
 
-RUN mv /etc/crontabs /etc/default-crontabs && mkdir -m 755 /etc/crontabs && \
-	mv /var/spool/cron /var/spool/default-cron && mkdir -m 755 /var/spool/cron
+RUN mkdir -m 755 /defaults && \
+	mkdir -m 755 /container && \
+	mv /etc/crontabs /default/etc/crontabs && ln -s /container/etc/crontabs /etc/crontabs && \
+	mv /etc/ssmtp /default/etc/ssmtp && ln -s /container/etc/ssmtp /etc/ssmtp && \
+	mv /var/spool/cron && ln -s /container/var/spool/cron /var/spool/cron && \
+	ln -s /container/etc/localtime /etc/localtime && \
+	touch /etc/timezone && chmod 644 /etc/timezone
 
 # tmpfs for crond
-VOLUME /etc/crontabs
-VOLUME /etc/ssmtp
-VOLUME /var/spool/cron
+VOLUME /container
 
 # bind
 VOLUME /etc/ssmtp/ssmtp.conf

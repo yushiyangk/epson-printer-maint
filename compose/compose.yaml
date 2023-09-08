@@ -22,15 +22,7 @@ services:
     read_only: true
     volumes:
       - type: tmpfs
-        target: /etc/cups
-      - type: tmpfs
-        target: /run/cups
-      - type: tmpfs
-        target: /var/cache/cups
-      - type: tmpfs
-        target: /var/log/cups
-      - type: tmpfs
-        target: /var/spool/cups
+        target: /container
       - type: bind
         source: cups/testpage-template.pdf
         target: /testpage-template.pdf
@@ -62,11 +54,7 @@ services:
     read_only: true
     volumes:
       - type: tmpfs
-        target: /etc/crontabs
-      - type: tmpfs
-        target: /etc/ssmtp
-      - type: tmpfs
-        target: /var/spool/cron
+        target: /container
       - type: bind
         source: cron/ssmtp.conf
         target: /etc/ssmtp/ssmtp.conf

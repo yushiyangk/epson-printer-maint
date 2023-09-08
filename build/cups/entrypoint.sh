@@ -1,10 +1,8 @@
 #!/bin/sh
 
-# Restore writeable volumes
-cp -a /etc/default-cups/* /etc/cups
-cp -a /run/default-cups/* /run/cups
-cp -a /var/cache/default-cups/* /var/cache/cups
-cp -a /var/spool/default-cups/* /var/spool/cups
+# Restore writeable files
+cp -a /defaults/* /container
+
 
 cupsd  # Start daemon
 
