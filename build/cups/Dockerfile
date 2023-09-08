@@ -12,7 +12,13 @@ RUN adduser root lpadmin
 COPY --link --chown=root:lp --chmod=640 cupsd.conf /etc/cups/cupsd.conf
 COPY --link --chmod=550 entrypoint.sh entrypoint.sh
 
-RUN mkdir -m 755 /defaults && \
+RUN mkdir -m 755 /default && \
+	mkdir -m 755 /default/etc && \
+	mkdir -m 755 /default/run && \
+	mkdir -m 755 /default/var && \
+	mkdir -m 755 /default/var/cache && \
+	mkdir -m 755 /default/var/log && \
+	mkdir -m 755 /default/var/spool && \
 	mkdir -m 755 /container && \
 	ln -s /container/etc/printcap /etc/printcap && \
 	mv /etc/cups /default/etc/cups && ln -s /container/etc/cups /etc/cups && \
