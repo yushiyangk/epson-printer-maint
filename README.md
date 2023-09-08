@@ -18,7 +18,7 @@ Using Docker Compose:
 
 ### Configure
 
-1. Edit `.env` to set the following values:
+1. Edit `env` to set the following values:
 
 	- **EPSON_PRINTER_URL**
 	- **EPSON_PRINTER_PPD_DRIVER**
@@ -33,13 +33,13 @@ Using Docker Compose:
 	- **EPSON_PRINTER_DESCRIPTION**: Human-readable name
 	- **EPSON_PRINTER_LOCATION**: Human-readable label for the printer's location
 
-2. Set the following values in `.env` as well:
+2. Set the following values in `env` as well:
 
 	- **EPSON_PRINTER_MAINT_INTERVAL_WEEKS**: How frequently the maintenance print should be run, in weeks
 	- **EPSON_PRINTER_MAINT_DAY_OF_WEEK**: Day of the week on which the maintenance print should be run, in cron format
 	- **EPSON_PRINTER_MAINT_HOUR**: Hour at which the maintenance print should be run, in cron format
 
-3. If email notifications are required, edit `cron/ssmtp.conf` to point it to the mail server with [the appropriate settings](https://wiki.archlinux.org/title/SSMTP), then set the following values in `.env`:
+3. If email notifications are required, edit `cron/ssmtp.conf` to point it to the mail server with [the appropriate settings](https://wiki.archlinux.org/title/SSMTP), then set the following values in `env`:
 
 	- **MAIL_DOMAIN**: The fully-qualified domain name that mail should be sent from (not including username)
 	- **MAIL_TO**: The recepient address (including username)

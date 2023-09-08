@@ -6,7 +6,7 @@ services:
       pull: true
     image: epson-printer-maint-cups
     env_file:
-      - .env
+      - env
     init: true
     tty: true
     stdin_open: true
@@ -48,7 +48,7 @@ services:
       pull: true
     image: epson-printer-maint-cron
     env_file:
-      - .env
+      - env
     init: true
     tty: true
     stdin_open: true
