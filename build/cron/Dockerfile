@@ -11,7 +11,7 @@ RUN addgroup -S -g $gid print && \
 ARG cache_date
 RUN apk update && \
 	apk upgrade --no-cache --no-interactive && \
-	apk add --no-cache --no-interactive cups-client ssmtp
+	apk add --no-cache --no-interactive tzdata cups-client ssmtp
 
 COPY --link --chown=print:print --chmod=440 testprint /home/print
 COPY --link --chmod=550 entrypoint.sh entrypoint.sh
@@ -26,5 +26,6 @@ VOLUME /var/spool/cron
 
 # bind
 VOLUME /etc/ssmtp/ssmtp.conf
+VOLUME /etc/timezone
 
 ENTRYPOINT ["./entrypoint.sh"]

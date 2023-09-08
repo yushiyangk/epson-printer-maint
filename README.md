@@ -25,7 +25,7 @@ Using Docker Compose:
 
 	For EPSON_PRINTER_URL, refer to the printer's documentation, or its web management interface if it has one. Alternatively, if the printer has already been installed on a user's PC, examine its configuration on that PC to get its URL.
 
-	For EPSON_PRINTER_PPD_DRIVER, run `docker compose run cups list` to show the available drivers, and choose the apprioriate file ending in `.ppd` that matches the printer.
+	For EPSON_PRINTER_PPD_DRIVER, run `sudo docker compose run cups list` to show the available drivers, and choose the apprioriate file ending in `.ppd` that matches the printer.
 
 	Optionally, set the following values as well (for informative purposes only):
 
@@ -44,7 +44,9 @@ Using Docker Compose:
 	- **MAIL_DOMAIN**: The fully-qualified domain name that mail should be sent from (not including username)
 	- **MAIL_TO**: The recepient address (including username)
 
-4. Optionally, replace `cups/testpage-template.pdf` with a different PDF file.
+4. Set the cron time zone by editing `timezone` to the appropriate [tz identifier](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), or set it to be the same as the host by running `sudo rm timezone && sudo ln -s /etc/timezone timezone`.
+
+5. Optionally, replace `cups/testpage-template.pdf` with a different PDF file.
 
 ### Run
 

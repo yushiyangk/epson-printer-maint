@@ -35,6 +35,10 @@ services:
         source: cups/testpage-template.pdf
         target: /testpage-template.pdf
         read_only: true
+      - type: bind
+        source: timezone
+        target: /etc/timezone
+        read_only: true
     networks:
       - network
 
@@ -66,6 +70,10 @@ services:
       - type: bind
         source: cron/ssmtp.conf
         target: /etc/ssmtp/ssmtp.conf
+        read_only: true
+      - type: bind
+        source: timezone
+        target: /etc/timezone
         read_only: true
     networks:
       - network

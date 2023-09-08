@@ -5,7 +5,7 @@ FROM alpine:3
 ARG cache_date
 RUN apk update && \
 	apk upgrade --no-cache --no-interactive && \
-	apk add --no-cache --no-interactive cups cups-filters epson-inkjet-printer-escpr
+	apk add --no-cache --no-interactive tzdata cups cups-filters epson-inkjet-printer-escpr
 
 RUN adduser root lpadmin
 
@@ -28,6 +28,7 @@ VOLUME /var/spool/cups
 
 # bind
 VOLUME /testpage-template.pdf
+VOLUME /etc/timezone
 
 EXPOSE 631
 
