@@ -18,7 +18,7 @@ jobs:
         run: mkdir -p release
       - name: Package for Docker Compose
         working-directory: compose
-        run: zip ../release/epson-printer-maint-${{ github.ref_name }}-docker-compose.zip *
+        run: zip ../release/epson-printer-maint-${{ github.ref_name }}-docker-compose.zip -r *
       - name: Generate release description from CHANGELOG.md
         env:
           RELEASE_VERSION: ${{ github.ref_name }}
