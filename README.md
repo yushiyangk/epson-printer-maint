@@ -61,12 +61,14 @@ sudo docker compose up
 Install the Systemd unit file and enable the service:
 
 ```
-sudo ln -s /srv/docker/epson-printer-maint/epson-printer-maint.service /etc/systemd/system/epson-printer-maint.service && sudo systemctl daemon-reload
-sudo systemctl enable epson-printer-maint && sudo service epson-printer-maint start
+sudo ln -s /srv/docker/epson-printer-maint/epson-printer-maint.service /etc/systemd/system/epson-printer-maint.service
+sudo systemctl daemon-reload
+sudo systemctl enable epson-printer-maint
+sudo systemctl start epson-printer-maint
 ```
 
 Check the status of the service:
 
 ```
-sudo service epson-printer-maint status
+sudo systemctl status epson-printer-maint
 ```
