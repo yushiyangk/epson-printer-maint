@@ -2,7 +2,7 @@ name: epson-printer-maint
 services:
   cups:
     build:
-      context: 'https://github.com/yushiyangk/epson-printer-maint.git#main:build/cups'
+      context: 'https://github.com/yushiyangk/epson-printer-maint.git#release-v1:build/cups'
       pull: true
     image: epson-printer-maint-cups
     env_file:
@@ -36,7 +36,7 @@ services:
 
   cron:
     build:
-      context: 'https://github.com/yushiyangk/epson-printer-maint.git#main:build/cron'
+      context: 'https://github.com/yushiyangk/epson-printer-maint.git#release-v1:build/cron'
       pull: true
     image: epson-printer-maint-cron
     env_file:

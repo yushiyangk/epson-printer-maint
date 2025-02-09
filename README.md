@@ -6,15 +6,17 @@ Maintenance print job for Epson printers
 
 Using Docker Compose:
 
-1. Create the working directory at `/srv/docker/epson-printer-maint`.
+1. Download the <code>epson-printer-maint-<var>version</var>-docker-compose.zip</code> file and extract it to `/srv/docker/epson-printer-maint`
 
-2. Copy the contents of `compose` from this repository to the working directory, either manually or by running
+	This can be done on the command-line with
 
+	```sh
+	curl -s https://api.github.com/repos/yushiyangk/epson-printer-maint/releases/latest | grep -F epson-printer-maint-1. | grep -F docker-compose.zip | grep -F browser_download_url | head -n 1 | cut -d ':' -f 2- | tr -d '"' | sudo wget -q -i - -P /srv/docker/epson-printer-maint/  # Download latest 1.x release
+	sudo unzip /srv/docker/epson-printer-maint/epson-printer-maint-*-docker-compose.zip -d /srv/docker/epson-printer-maint/
+	sudo rm /srv/docker/epson-printer-maint/epson-printer-maint-*-docker-compose.zip
 	```
-	sudo curl -L https://codeload.github.com/yushiyangk/epson-printer-maint/zip/refs/heads/main -o epson-printer-maint.zip && sudo unzip -t epson-printer-maint.zip
-	sudo unzip epson-printer-maint.zip epson-printer-maint-main/compose/*
-	sudo find epson-printer-maint-main/compose -mindepth 1 -maxdepth 1 -exec mv -n "{}" . \; && sudo rm -r epson-printer-maint-main epson-printer-maint.zip
-	```
+
+	If a previous version is already installed, you will be prompted to replace the existing files. Be careful not to clobber the existing `env`.
 
 ### Configure
 
