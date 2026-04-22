@@ -1,5 +1,5 @@
 EPSON_PRINTER_NAME=EPSON-L4160-Series
-EPSON_PRINTER_URL='https://ipaddress:631/ipp/print'
+EPSON_PRINTER_URL='ipps://ipaddress_or_domain/ipp/print'
 EPSON_PRINTER_DESCRIPTION='EPSON L4160 Series'
 EPSON_PRINTER_LOCATION=''
 EPSON_PRINTER_PPD_DRIVER='everywhere'
