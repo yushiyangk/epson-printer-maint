@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Restore writeable files
-cp -a --update=none /default/* /container  # Do not overwrite if this script is executed again
+cp -an /default/* /container  # Do not overwrite if this script is executed again
 
 # Set time zone
 ln -sf /usr/share/zoneinfo/"$(cat /etc/timezone)" /container/etc/localtime  # Okay to overwrite as /etc/timezone is read-only
