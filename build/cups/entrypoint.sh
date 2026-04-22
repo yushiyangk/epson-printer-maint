@@ -19,6 +19,10 @@ case "$1" in
 		lpinfo -v
 		exit 0
 		;;
+	status)
+		lpstat -l -t
+		exit 0
+		;;
 	*) ;;
 esac
 
