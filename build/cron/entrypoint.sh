@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Restore writeable files
-cp -a /default/* /container
+cp -a --update=none /default/* /container
 
 # Set time zone
 ln -s /usr/share/zoneinfo/"$(cat /etc/timezone)" /container/etc/localtime
