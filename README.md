@@ -18,43 +18,74 @@ Using Docker Compose:
 
 	If a previous version is already installed, you will be prompted to replace the existing files. Be careful not to clobber the existing `env`.
 
-### Configure
+## Configure
 
-1. Edit `env` to set the following values:
+1. Edit `env`
 
-	- **EPSON_PRINTER_URL**
-	- **EPSON_PRINTER_PPD_DRIVER**
+	1. Set **EPSON_PRINTER_NAME**
 
-	For EPSON_PRINTER_URL, refer to the printer's documentation, or its web management interface if it has one. Alternatively, if the printer has already been installed on a user's PC, examine its configuration on that PC to get its URL.
+		This is the printer identifier used internally by CUPS.
 
-	For EPSON_PRINTER_PPD_DRIVER, run `sudo docker compose run cups list` to show the available drivers, and choose the apprioriate file ending in `.ppd` that matches the printer.
+	2. Set **EPSON_PRINTER_URL**
 
-	Optionally, set the following values as well (for informative purposes only):
+		Refer to the printer's documentation for its network printing URI, or refer to its web management interface if it has one.
 
-	- **EPSON_PRINTER_NAME**: Printer destination name used internally by CUPS
-	- **EPSON_PRINTER_DESCRIPTION**: Human-readable name
-	- **EPSON_PRINTER_LOCATION**: Human-readable label for the printer's location
+		This is most likely in the form of one of the following:
 
-2. Set the following values in `env` as well:
+		<pre><code>ipps://<var>ip_address_or_domain</var>/ipp/print
+		https://<var>ip_address_or_domain</var>:631/ipp/print</pre></code>
 
-	- **EPSON_PRINTER_MAINT_INTERVAL_WEEKS**: How frequently the maintenance print should be run, in weeks
-	- **EPSON_PRINTER_MAINT_DAY_OF_WEEK**: Day of the week on which the maintenance print should be run, in cron format
-	- **EPSON_PRINTER_MAINT_HOUR**: Hour at which the maintenance print should be run, in cron format
+		The two forms are equivalent, but note the port 631 which must be specified for `https`. If IPPS/HTTPS is not supported, replace `ipps` with `ipp` or `https` with `http` instead.
 
-3. If email notifications are required, edit `cron/ssmtp.conf` to point it to the mail server with [the appropriate settings](https://wiki.archlinux.org/title/SSMTP), then set the following values in `env`:
+	3. Leave **EPSON_PRINTER_PPD_DRIVER** as the default value of `everywhere` for now.
 
-	- **MAIL_DOMAIN**: The fully-qualified domain name that mail should be sent from (not including username)
-	- **MAIL_TO**: The recepient address (including username)
+		If this does not work, see below on how to [Specify printer driver](#specify-printer-driver).
 
-4. Set the time zone by editing `timezone` to the appropriate [tz identifier](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), or set it to be the same as the host by running `sudo rm timezone && sudo ln -s /etc/timezone timezone`.
+	4. Optionally, set the following values as well (for informative purposes only):
 
-5. Optionally, replace `cups/testpage-template.pdf` with a different PDF file.
+		- **EPSON_PRINTER_DESCRIPTION**: Human-readable name
+		- **EPSON_PRINTER_LOCATION**: Human-readable label for the printer's location
 
-### Run
+	5. Set the folowing values to determine when the maintenance print will be run:
+
+		- **EPSON_PRINTER_MAINT_INTERVAL_WEEKS**: Frequency in weeks of maintenance print
+		- **EPSON_PRINTER_MAINT_DAY_OF_WEEK**: Day of the week on which the maintenance print should be run, in cron format (`0` for Sunday, `6` for Saturday)
+		- **EPSON_PRINTER_MAINT_HOUR**: Hour at which the maintenance print should be run, in cron format (`0` for midnight, `13` for 1 p.m.)
+
+		For example, to run it every single day at noon, set EPSON_PRINTER_MAINT_INTERVAL_WEEKS to `1`, EPSON_PRINTER_MAINT_DAY_OF_WEEK to `*`, and EPSON_PRINTER_MAINT_HOUR to `12`.
+
+2. If email notifications are required,
+
+	1. Edit `cron/ssmtp.conf` to point it to the mail server with [the appropriate settings](https://wiki.archlinux.org/title/SSMTP).
+
+		The provided default settings are reasonable, except that **mailhub** must be configured to the mail submission server's network address
+
+	2. Edit `env` and set the following values:
+
+		- **MAIL_DOMAIN**: The fully-qualified domain name to be used as the sender domain (not including username), e.g. <code><var>myhost</var>.<var>mydomain</var>.net</code>
+		- **MAIL_TO**: The recepient email address (including username), e.g. <code><var>user</var>@<var>email_service</var>.com</code>
+
+3. Set the time zone by editing `timezone` to the appropriate [tz identifier](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones), or set it to be the same as the host by running `sudo rm timezone && sudo ln -s /etc/timezone timezone`.
+
+4. Optionally, replace `cups/testpage-template.pdf` with a different PDF file.
+
+### Specify printer driver
+
+If the default printer driver of `everywhere` does not work, it may be necessary to specify a specific driver for the printer.
+
+Run <code>sudo docker compose run cups <b>list</b></code> to show a list of available drivers, and choose the appropriate file ending in `.ppd` that matches the printer. Edit `env` and set **EPSON_PRINTER_PPD_DRIVER** to this value.
+
+Note that this functionality is deprecated by CUPS, and may not be supported in the future.
+
+## Run
 
 ```
 sudo docker compose up
 ```
+
+### Show printer status
+
+<pre><code>sudo docker compose exec cups ./entrypoint.sh <b>status</b></code></pre>
 
 ## Start as service on boot
 
