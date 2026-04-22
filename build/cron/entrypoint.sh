@@ -2,6 +2,8 @@
 
 # Restore writeable files
 cp -an /default/* /container
+cp -an /default/etc/* /container/etc
+cp -an /default/etc/ssmtp/* /container/etc/ssmtp
 
 # Set time zone
 ln -s /usr/share/zoneinfo/"$(cat /etc/timezone)" /container/etc/localtime
