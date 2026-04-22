@@ -1,13 +1,14 @@
 #!/bin/sh
 
 # Restore writeable files
-cp -a /default/* /container
+cp -an /default/* /container  # Do not overwrite if this script is executed again
 
 # Set time zone
-ln -s /usr/share/zoneinfo/"$(cat /etc/timezone)" /container/etc/localtime
+ln -sf /usr/share/zoneinfo/"$(cat /etc/timezone)" /container/etc/localtime  # Okay to overwrite as /etc/timezone is read-only
 
 
-cupsd  # Start daemon
+# Start daemon
+cupsd
 
 case "$1" in
 	list|drivers)
@@ -18,10 +19,15 @@ case "$1" in
 		lpinfo -v
 		exit 0
 		;;
+	status)
+		lpstat -l -t
+		exit 0
+		;;
 	*) ;;
 esac
 
 lpadmin -p "$EPSON_PRINTER_NAME" -E -D "$EPSON_PRINTER_DESCRIPTION" -L "$EPSON_PRINTER_LOCATION" -v "$EPSON_PRINTER_URL" -m "$EPSON_PRINTER_PPD_DRIVER"
 lpstat -l -t
 
-cupsd -f  # Restart daemon in foreground
+# Restart daemon in foreground
+cupsd -f
